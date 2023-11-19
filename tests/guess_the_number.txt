@@ -1,8 +1,8 @@
 +-------------------------------------+
-|            Necati Arslan            |
+|          GUESS THE NUMBER           |
 +-------------------------------------+
-| Enter your name:                    |
+| Enter Your Guess [1-20]:            |
 | [{textbox:name_textbox}           ] |
 +-------------------------------------+
-| Your name is: {label:name_label}    |
+| {label:name_label}                  |
 +-------------------------------------+

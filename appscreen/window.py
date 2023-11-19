@@ -7,6 +7,7 @@ class Window():
     components = []
     design = None
     stdscr = None
+    show_cursor:bool = True
 
     def __init__(self, design_file_path):
         with open(design_file_path, 'r') as file:
@@ -66,9 +67,11 @@ class Window():
 
     def draw(self):
         stdscr = self.stdscr
-        curses.curs_set(0)
         stdscr.clear()
-        stdscr.refresh()
+        if self.show_cursor:
+            curses.curs_set(1)
+        else:
+            curses.curs_set(0)
 
         # Get screen dimensions
         # height, width = stdscr.getmaxyx()
@@ -84,5 +87,6 @@ class Window():
         for c in self.components:
             c.draw()
         
-        stdscr.getch()
-    
+        stdscr.refresh()
+        self.stdscr.getch()
+        
