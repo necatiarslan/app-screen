@@ -2,12 +2,15 @@ import curses
 import re
 from .label import Label
 from .textbox import TextBox
+from .color import Color
 
 class Window():
-    components = []
+    components = {}
     design = None
     stdscr = None
     show_cursor:bool = True
+    text_color = None | Color
+    back_color = None | Color
 
     def __init__(self, design_file_path):
         with open(design_file_path, 'r') as file:
@@ -25,12 +28,11 @@ class Window():
     def add_component(self, component):
         c = self.get_component(component.name)
         if c is None:
-            self.components.append(component)
+            self.components[component.name]= component
     
     def get_component(self, name):
-        for c in self.components:
-            if c.name == name:
-                return c
+        if name in self.components:
+            return self.components[name]
         return None
 
     def get_ui_components(self):
@@ -79,13 +81,13 @@ class Window():
 
         lines = self.design.split('\n')
         for y, line in enumerate(lines):
-            for c in self.components:
+            for c in self.components.values():
                 if c.y == y:
                     line = line[:c.x] + (" " * c.width) + line[c.end:]
 
             stdscr.addstr(y, 0, line)
         
-        for c in self.components:
+        for c in self.components.values():
             c.draw()
         
         stdscr.refresh()
