@@ -11,6 +11,8 @@ class Window():
     show_cursor:bool = True
     text_color = None | Color
     back_color = None | Color
+    debug_mode = False
+    is_screen_drawed = False
 
     def __init__(self, design_file_path):
         with open(design_file_path, 'r') as file:
@@ -69,30 +71,58 @@ class Window():
                 c.y = line_number
                 c.width = width
                 c.window = self
+        
+        #clear component texts
+        lines = self.design.split('\n')
+        cleared_design = ""
+        for y, line in enumerate(lines):
+            for c in self.components.values():
+                if c.y == y:
+                    line = line[:c.x] + (" " * c.width) + line[c.end:]
+            cleared_design += line + "\n"
+        
+        self.design = cleared_design
+
+    def get_dimentions(self):
+        if self.stdscr:
+            height, width = self.stdscr.getmaxyx()
+            return height, width
 
     def draw(self):
-        stdscr = self.stdscr
-        stdscr.clear()
+        if self.is_screen_drawed:
+            return
+        
+        self.stdscr.clear()
+
         if self.show_cursor:
             curses.curs_set(1)
         else:
             curses.curs_set(0)
 
-        # Get screen dimensions
-        # height, width = stdscr.getmaxyx()
-
         lines = self.design.split('\n')
         for y, line in enumerate(lines):
-            for c in self.components.values():
-                if c.y == y:
-                    line = line[:c.x] + (" " * c.width) + line[c.end:]
+            self.stdscr.addstr(y, 0, line)
+        
+        self.draw_components()
+        self.draw_debug()
 
-            stdscr.addstr(y, 0, line)
-        
-        for c in self.components.values():
-            c.draw()
-        
-        stdscr.refresh()
+        self.stdscr.refresh()
+        self.is_screen_drawed=True
+
+    def draw_components(self, component=None):
+        if component:
+            component.draw()
+        else:
+            for c in self.components.values():
+                c.draw()
+        if self.stdscr:
+            self.stdscr.refresh()
+
+    def draw_debug(self):
+        if self.debug_mode:
+            for c in self.components.values():
+                y += 1
+                self.stdscr.addstr(y, 0, c.to_string())
 
     def loaded(self):
         pass     

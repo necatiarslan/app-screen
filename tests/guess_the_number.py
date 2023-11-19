@@ -6,6 +6,8 @@ from appscreen.textbox import TextBox
 from appscreen.label import Label
 from appscreen.component import TextAlign
 
+
+
 class GuessTheNumber(Window):
 
     name_textbox = TextBox("name_textbox")
@@ -20,8 +22,15 @@ class GuessTheNumber(Window):
         self.name_label.text_align = TextAlign.Center
         self.name_label.text = "Enter Your Guess"
 
+        self.name_textbox.on_text_entered = self.name_textbox_text_entered
+
         self.add_component(self.name_textbox)
         self.add_component(self.name_label)
     
     def loaded(self):
+        self.name_textbox.focus()
+    
+    def name_textbox_text_entered(self):
+        self.name_label.text = self.name_textbox.text_entered
+        self.draw_components(self.name_label)
         self.name_textbox.focus()
