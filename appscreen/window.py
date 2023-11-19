@@ -35,7 +35,7 @@ class Window():
 
     def get_ui_components(self):
         # Define a regex pattern to match {textbox:component_name} or {label:component_name}
-        pattern = r'{(textbox|label):(\w+)}'
+        pattern = r'{(textbox|label):(\w+\s*)}'
 
         # Find all matches in the design
         matches = re.finditer(pattern, self.design)
@@ -49,6 +49,7 @@ class Window():
             column_number = match.start() - line_start
             width = match.end() - match.start()
 
+            component_name = component_name.strip()
             c = self.get_component(component_name)
             if c is None:
                 if component_type == "textbox":
