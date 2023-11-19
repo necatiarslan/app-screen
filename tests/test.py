@@ -1,14 +1,16 @@
 import sys, os
 sys.path.append(os.path.abspath("."))
 
-from appscreen import tui
+from appscreen.window import Window
+from appscreen.textbox import TextBox
+from appscreen.label import Label
 
-window = tui.Window("tests/ui_design.txt")
+window = Window("tests/ui_design.txt")
 
-name_textbox = tui.TextBox("name_textbox")
+name_textbox = TextBox("name_textbox")
 window.add_component(name_textbox)
 
-name_label = tui.Label("name_label")
+name_label = Label("name_label")
 name_label.text = "HELLO"
 window.add_component(name_label)
 

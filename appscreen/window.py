@@ -1,73 +1,7 @@
 import curses
 import re
-from enum import Enum
-
-class Color(Enum):
-    Black = curses.COLOR_BLACK
-    White =  curses.COLOR_WHITE
-    Blue =  curses.COLOR_BLUE
-    Cyan = curses.COLOR_CYAN
-    Green = curses.COLOR_GREEN
-    Magenta = curses.COLOR_MAGENTA
-    Red = curses.COLOR_RED
-    Yellow = curses.COLOR_YELLOW
-
-class Component:
-    window = None
-    name = None
-    x = None
-    y = None
-    width = None
-    text_color = None | Color
-    back_color = None | Color
-    
-    @property
-    def end(self):
-        return self.x + self.width
-    
-    def to_string(self):
-        return f"component:{self.name}, x={self.x}, y={self.y}, width={self.width}, end={self.end}"
-    
-    def draw(self):
-        if self.window and self.window.stdscr and self.x and self.y:
-            stdscr = self.window.stdscr
-            stdscr.stdscr.addstr(self.y, self.x, f"[{self.name}]")
-
-class Label(Component):
-    text = None
-    def __init__(self, name, **kwargs):
-        self.name = name
-        
-        for k, v in kwargs.items():
-            if k == "x":
-                self.x = v
-            if k == "y":
-                self.y = v
-
-            if k == "width":
-                self.width = v
-
-    def draw(self):
-        if self.window and self.window.stdscr and self.text and self.x and self.y:
-            stdscr = self.window.stdscr
-            stdscr.addstr(self.y, self.x, self.text)
-
-class TextBox(Component):
-    def __init__(self, name, **kwargs):
-        self.name = name
-        for k, v in kwargs.items():
-            if k == "x":
-                self.x = v
-            if k == "y":
-                self.y = v
-
-            if k == "width":
-                self.width = v
-
-    def draw(self):
-        if self.window and self.window.stdscr and self.x and self.y:
-            stdscr = self.window.stdscr
-            stdscr.addstr(self.y, self.x, f"<{self.name}>")
+from .label import Label
+from .textbox import TextBox
 
 class Window():
     components = []
@@ -152,6 +86,3 @@ class Window():
         
         stdscr.getch()
     
-
-
-
