@@ -20,6 +20,8 @@ class Window():
     def main(stdscr, window):
         window.stdscr = stdscr
         window.draw()
+        window.loaded()
+        window.stdscr.getch()
 
     def show(self):
         self.get_ui_components()
@@ -91,5 +93,6 @@ class Window():
             c.draw()
         
         stdscr.refresh()
-        self.stdscr.getch()
-        
+
+    def loaded(self):
+        pass     

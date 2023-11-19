@@ -22,7 +22,6 @@ class TextBox(Component):
             if not self.curses_textbox:
                 win = curses.newwin(1, self.width, self.y, self.x)
                 self.curses_textbox = CursesTextBox(win)
-                
             
     def focus(self):
         if self.curses_textbox:

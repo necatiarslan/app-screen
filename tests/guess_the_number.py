@@ -22,3 +22,6 @@ class GuessTheNumber(Window):
 
         self.add_component(self.name_textbox)
         self.add_component(self.name_label)
+    
+    def loaded(self):
+        self.name_textbox.focus()
