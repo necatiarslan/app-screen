@@ -123,4 +123,4 @@ class Window():
                 self.stdscr.addstr(y, 0, c.to_string())
 
     def loaded(self):
-        pass     
+        pass #handle in the window itself

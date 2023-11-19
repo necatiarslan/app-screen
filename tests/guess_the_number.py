@@ -47,7 +47,6 @@ class GuessTheNumber(Window):
         else:
             self.name_label.text = f"Please Enter a Number"
             
-        self.draw_components(self.name_label)
         if re_focus:
             self.name_textbox.focus()
         

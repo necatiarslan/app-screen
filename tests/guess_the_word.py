@@ -13,13 +13,16 @@ from faker import Faker
 class GuessTheWord(Window):
 
     letter_textbox = TextBox("letter_textbox")
-    state_label = Label("state_label")
+    word_label = Label("word_label")
     info_label = Label("info_label")
     guessed_label = Label("guessed_label")
+    caption_label = Label("caption_label")
 
+
+    word_type = "STATE"
     guessed_letters = []
-    attempts = 6
-    word_to_guess = Faker().state()
+    attempts:int = 6
+    word_to_guess:str
 
     def __init__(self, design_file_path):
         super().__init__(design_file_path)
@@ -27,7 +30,7 @@ class GuessTheWord(Window):
         self.init_components()
     
     def init_components(self):
-        self.state_label.text_align = TextAlign.Center
+        self.word_label.text_align = TextAlign.Center
 
         self.letter_textbox.on_text_entered = self.letter_textbox_text_entered
 
@@ -36,14 +39,24 @@ class GuessTheWord(Window):
 
         self.guessed_label.text_align = TextAlign.Right
 
+        self.caption_label.text_align = TextAlign.Center
+
         self.add_component(self.letter_textbox)
-        self.add_component(self.state_label)
+        self.add_component(self.word_label)
         self.add_component(self.info_label)
         self.add_component(self.guessed_label)
+        self.add_component(self.caption_label)
 
     def loaded(self):
-        self.state_label.text = self.get_state_display()
-        self.draw_components(self.state_label)
+        if self.word_type == "STATE":
+            self.word_to_guess = Faker().state()
+        elif self.word_type == "NAME":
+            self.word_to_guess = Faker().first_name()
+        elif self.word_type == "COUNTRY":
+            self.word_to_guess = Faker().country()
+
+        self.caption_label.text = "GUESS THE " + self.word_type
+        self.word_label.text = self.get_word_display()
         self.letter_textbox.focus()
     
     def letter_textbox_text_entered(self):
@@ -68,10 +81,10 @@ class GuessTheWord(Window):
 
             
             self.guessed_label.text = ",".join(self.guessed_letters)
-            self.state_label.text = self.get_state_display()
+            self.word_label.text = self.get_word_display()
 
 
-            if "_" not in self.state_label.text:
+            if "_" not in self.word_label.text:
                 self.info_label.text = "Congratulations :-)"
                 re_focus = False
 
@@ -81,7 +94,7 @@ class GuessTheWord(Window):
         if re_focus:
             self.letter_textbox.focus()
 
-    def get_state_display(self):
+    def get_word_display(self):
         display = ""
         for letter in self.word_to_guess:
             if letter.lower() in self.guessed_letters:
