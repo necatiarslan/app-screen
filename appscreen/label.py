@@ -1,7 +1,7 @@
 from .component import Component, TextAlign
 
 class Label(Component):
-    text = None
+    _text = None
     text_align:TextAlign = None
 
     def __init__(self, name, **kwargs):
@@ -16,10 +16,20 @@ class Label(Component):
             if k == "width":
                 self.width = v
 
+    @property
+    def text(self):
+        return self._text
+
+    @text.setter
+    def text(self, value):
+        self._text = value
+        self.draw()
+
     def draw(self):
         if self.window and self.window.stdscr and self.text and self.x and self.y:
             stdscr = self.window.stdscr
             stdscr.addstr(self.y, self.x, self.draw_text())
+            stdscr.refresh()
     
     def draw_text(self):
         result = ""

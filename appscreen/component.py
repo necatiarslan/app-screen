@@ -26,3 +26,4 @@ class Component:
         if self.window and self.window.stdscr and self.x and self.y:
             stdscr = self.window.stdscr
             stdscr.stdscr.addstr(self.y, self.x, f"[{self.name}]")
+            stdscr.refresh()

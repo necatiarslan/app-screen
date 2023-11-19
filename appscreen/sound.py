@@ -1,4 +1,4 @@
-from curses import beep
+from curses import beep as curses_beep
 
 def beep():
-    beep()
+    curses_beep()

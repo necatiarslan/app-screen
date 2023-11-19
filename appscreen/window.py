@@ -115,8 +115,6 @@ class Window():
         else:
             for c in self.components.values():
                 c.draw()
-        if self.stdscr:
-            self.stdscr.refresh()
 
     def draw_debug(self):
         if self.debug_mode:
