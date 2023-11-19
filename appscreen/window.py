@@ -5,14 +5,15 @@ from .textbox import TextBox
 from .color import Color
 
 class Window():
-    components = {}
-    design = None
+    components:{} = {}
+    design:str = None
     stdscr = None
     show_cursor:bool = True
-    text_color = None | Color
-    back_color = None | Color
-    debug_mode = False
-    is_screen_drawed = False
+    text_color:None | Color
+    back_color:None | Color
+    debug_mode:bool = False
+    is_screen_drawed:bool = False
+    press_key_to_exit:bool = False
 
     def __init__(self, design_file_path):
         with open(design_file_path, 'r') as file:
@@ -23,7 +24,10 @@ class Window():
         window.stdscr = stdscr
         window.draw()
         window.loaded()
-        window.stdscr.getch()
+        
+        #window is closing
+        if window.press_key_to_exit:
+            window.stdscr.getch()
 
     def show(self):
         self.get_ui_components()
