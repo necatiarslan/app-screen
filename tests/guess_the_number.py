@@ -6,12 +6,15 @@ from appscreen.textbox import TextBox
 from appscreen.label import Label
 from appscreen.component import TextAlign
 
-
+import random
 
 class GuessTheNumber(Window):
 
     name_textbox = TextBox("name_textbox")
     name_label = Label("name_label")
+
+    number = random.randint(1, 20)
+    guess = None
 
     def __init__(self, design_file_path):
         super().__init__(design_file_path)
@@ -26,11 +29,25 @@ class GuessTheNumber(Window):
 
         self.add_component(self.name_textbox)
         self.add_component(self.name_label)
-    
+
     def loaded(self):
         self.name_textbox.focus()
     
     def name_textbox_text_entered(self):
-        self.name_label.text = self.name_textbox.text_entered
+        re_focus = True
+        if self.name_textbox.text_entered.isnumeric():
+            guess = int(self.name_textbox.text_entered)
+            if guess < self.number:
+                self.name_label.text = "Too low!"
+            elif guess > self.number:
+                self.name_label.text = "Too high!"
+            elif guess == self.number:
+                self.name_label.text = "You win the game :-)"
+                re_focus = False
+        else:
+            self.name_label.text = f"Please Enter a Number"
+            
         self.draw_components(self.name_label)
-        self.name_textbox.focus()
+        if re_focus:
+            self.name_textbox.focus()
+        

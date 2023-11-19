@@ -45,7 +45,7 @@ class TextBox(Component):
     """
     curses_textbox = None
     on_text_entered = None
-    text_entered = ""
+    text_entered:str = ""
 
     def __init__(self, name, **kwargs):
         self.name = name
@@ -68,6 +68,7 @@ class TextBox(Component):
     def focus(self):
         if self.curses_textbox:
             self.text_entered = self.curses_textbox.edit()
+            self.text_entered = self.text_entered.strip() #clear spaces
             if self.on_text_entered:
                 self.on_text_entered()
 
