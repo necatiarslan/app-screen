@@ -46,7 +46,7 @@ class TextBox(Component):
     curses_textbox = None
     on_text_entered = None
     text_entered:str = ""
-
+    textbox_window = None
     def __init__(self, name, **kwargs):
         self.name = name
         for k, v in kwargs.items():
@@ -62,13 +62,17 @@ class TextBox(Component):
         if self.window and self.window.stdscr and self.x and self.y:
             stdscr = self.window.stdscr
             if not self.curses_textbox:
-                win = curses.newwin(1, self.width, self.y, self.x)
-                self.curses_textbox = CursesTextBox(win,insert_mode=True)
+                self.textbox_window = curses.newwin(1, self.width, self.y, self.x)
+                self.curses_textbox = CursesTextBox(self.textbox_window)
             
     def focus(self):
         if self.curses_textbox:
+            self.textbox_window.clear()
+            self.textbox_window.refresh()
+
             self.text_entered = self.curses_textbox.edit()
             self.text_entered = self.text_entered.strip() #clear spaces
+
             if self.on_text_entered:
                 self.on_text_entered()
-
+            

@@ -60,6 +60,9 @@ class GuessTheWord(Window):
         self.letter_textbox.focus()
     
     def letter_textbox_text_entered(self):
+        if self.name_textbox.text_entered == "!":
+            return
+        
         re_focus = True
 
         guess = self.letter_textbox.text_entered

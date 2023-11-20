@@ -34,6 +34,9 @@ class GuessTheNumber(Window):
         self.name_textbox.focus()
     
     def name_textbox_text_entered(self):
+        if self.name_textbox.text_entered == "!":
+            return
+
         re_focus = True
         if self.name_textbox.text_entered.isnumeric():
             guess = int(self.name_textbox.text_entered)

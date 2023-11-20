@@ -12,7 +12,6 @@ class Window():
     text_color:None | Color
     back_color:None | Color
     debug_mode:bool = False
-    is_screen_drawed:bool = False
     press_key_to_exit:bool = False
 
     def __init__(self, design_file_path):
@@ -26,6 +25,8 @@ class Window():
         window.loaded()
         
         #window is closing
+        window.before_closing()
+
         if window.press_key_to_exit:
             window.stdscr.getch()
 
@@ -93,13 +94,11 @@ class Window():
             return height, width
 
     def draw(self):
-        if self.is_screen_drawed:
-            return
-        
         self.stdscr.clear()
+        self.stdscr.refresh()
 
         if self.show_cursor:
-            curses.curs_set(1)
+            curses.curs_set(2)
         else:
             curses.curs_set(0)
 
@@ -111,7 +110,6 @@ class Window():
         self.draw_debug()
 
         self.stdscr.refresh()
-        self.is_screen_drawed=True
 
     def draw_components(self, component=None):
         if component:
@@ -127,4 +125,7 @@ class Window():
                 self.stdscr.addstr(y, 0, c.to_string())
 
     def loaded(self):
+        pass #handle in the window itself
+    
+    def before_closing(self):
         pass #handle in the window itself
