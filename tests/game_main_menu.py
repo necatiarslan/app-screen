@@ -32,8 +32,6 @@ class GameMainMenu(Window):
         if self.option_textbox.text_entered.isnumeric():
             self.selected_option = int(self.option_textbox.text_entered)
             re_focus = False
-        else:
-            self.name_label.text = f"Please Enter a Number"
             
         if re_focus:
             self.option_textbox.focus()

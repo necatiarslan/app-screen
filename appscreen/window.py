@@ -5,7 +5,7 @@ from .textbox import TextBox
 from .color import Color
 
 class Window():
-    components:{} = {}
+    components:{}
     design:str = None
     stdscr = None
     show_cursor:bool = True
@@ -15,8 +15,10 @@ class Window():
     press_key_to_exit:bool = False
 
     def __init__(self, design_file_path):
+        self.components = {} # why this is added here ?
         with open(design_file_path, 'r') as file:
             self.design = file.read()
+            
 
     @staticmethod
     def main(stdscr, window):
@@ -95,7 +97,6 @@ class Window():
 
     def draw(self):
         self.stdscr.clear()
-        self.stdscr.refresh()
 
         if self.show_cursor:
             curses.curs_set(2)
