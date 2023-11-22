@@ -12,7 +12,7 @@ class Component:
     x = None
     y = None
     width = None
-    text_color = None | Color
+    fore_color = None | Color
     back_color = None | Color
     
     @property

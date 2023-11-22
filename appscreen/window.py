@@ -2,17 +2,18 @@ import curses
 import re
 from .label import Label
 from .textbox import TextBox
-from .color import Color
+from .color import get_pair_number
 
 class Window():
     components:{}
     design:str = None
     stdscr = None
     show_cursor:bool = True
-    text_color:None | Color
-    back_color:None | Color
+    fore_color:None | int = None
+    back_color:None | int = None
     debug_mode:bool = False
     press_key_to_exit:bool = False
+    text_colors:{} = {}
 
     def __init__(self, design_file_path):
         self.components = {} # why this is added here ?
@@ -98,6 +99,9 @@ class Window():
     def draw(self):
         self.stdscr.clear()
 
+        #curses.start_color()
+        #self.stdscr.bkgdset('', get_pair_number(self.fore_color, self.back_color))
+
         if self.show_cursor:
             curses.curs_set(2)
         else:
@@ -130,3 +134,21 @@ class Window():
     
     def before_closing(self):
         pass #handle in the window itself
+
+    def color_text(self, text:str, fore_color = None | int, back_color = None | int):
+        pass
+
+    def color_borders(self, fore_color = None | int, back_color = None | int):
+        #─ │ ┌ ┐ └ ┘ ├ ┤ ┬ ┴ ┼
+        self.text_colors["─"] = get_pair_number(fore_color, back_color)
+        self.text_colors["│"] = get_pair_number(fore_color, back_color)
+        self.text_colors["┌"] = get_pair_number(fore_color, back_color)
+        self.text_colors["┐"] = get_pair_number(fore_color, back_color)
+        self.text_colors["└"] = get_pair_number(fore_color, back_color)
+        self.text_colors["┘"] = get_pair_number(fore_color, back_color)
+        self.text_colors["├"] = get_pair_number(fore_color, back_color)
+        self.text_colors["┤"] = get_pair_number(fore_color, back_color)
+        self.text_colors["┬"] = get_pair_number(fore_color, back_color)
+        self.text_colors["┴"] = get_pair_number(fore_color, back_color)
+        self.text_colors["┼"] = get_pair_number(fore_color, back_color)
+        #self.text_colors[""] = get_pair_number(fore_color, back_color)
