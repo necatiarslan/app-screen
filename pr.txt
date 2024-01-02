@@ -1,0 +1,41 @@
+
+Throughout the year, I have had the opportunity to work on diverse initiatives, leveraging my technical skills and passion for developer-focused tools. 
+Below are some highlights of my achievements:
+
+1. Boxcuts Datasets:
+- Completed the Boxcuts datasets, successfully sending the data in a timely manner, showcasing efficiency and attention to detail.
+
+2. Grayhair Production Dry Run:
+- Led the dry run for the Grayhair production, collaborating with business partners and Axiom for test runs and validations, ultimately deploying the project to production.
+
+3. Marketing Offers Components Migration:
+- Successfully migrated Marketing Offers components to Gen3 account, involving 2 DynamoDB tables, 3 Lambda functions, and an SNS topic. This live system serves offer data through an exchange API.
+
+4. Datapipers and Marketing Offers TREX Failover:
+- Attended and successfully completed failover activities for Datapipers and Marketing Offers TREX systems, showcasing adaptability and problem-solving skills.
+
+5. MarketingAudianceCustomer DynamoDB Table:
+- Created the MarketingAudianceCustomer DynamoDB table, contributing to data management and accessibility.
+
+6. AWS Glue Onboarding:
+- Onboarded to AWS Glue, sharing my experience through a Bite-Sized Learning session. Assisted others on Slack with prerequisites for AWS Glue.
+
+7. DynamodbSync Python Package:
+- Developed DynamodbSync, a Python package facilitating easy updates to DynamoDB tables from source PySpark or Pandas dataframes. This library has significant potential for future growth.
+
+8. Glue Job Development:
+- Developed Glue jobs to enrich the MarketingAudianceCustomer table with SITE data and export items to a Parquet file for OneLake through OneStream.
+
+9. awsglue-utils Python Package:
+- Developed awsglue-utils, a Python package for common functionalities in AWS Glue jobs, streamlining processes and enhancing efficiency.
+
+10. ETL Framework and Cross Marketing POC:
+- Designed and implemented an ETL framework, completing a successful Cross Marketing POC scenario. The framework, backed by Apache Spark, has the potential to revolutionize AWS Glue ETLs.
+
+Vision for Developer-Focused Tools:
+I am deeply committed to making developers' lives easier at Capital One. My focus on developer-centric tools, infrastructure, and libraries has resulted in the development of VSCode extensions, Python packages, and innovative frameworks. I believe these contributions align with the organization's goals and present numerous opportunities for improvement.
+
+Future Goals:
+Looking ahead, my vision includes further developing VSCode extensions and Python packages to enhance developer productivity. I am dedicated to exploring additional opportunities within Capital One to contribute to the growth and improvement of our technical ecosystem.
+
+I appreciate the support and collaboration from my colleagues and look forward to continuing to contribute to the success of our team and the organization as a whole.
